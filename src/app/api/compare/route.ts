@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/security/rateLimiter';
 import { redactPii } from '@/lib/security/piiRedactor';
 import { checkForInjection } from '@/lib/security/injectionGuard';
-import { validateDocumentInput } from '@/lib/security/inputValidator';
 import { getProModel } from '@/lib/ai/geminiClient';
 import { buildComparisonPrompt } from '@/lib/ai/prompts/comparisonPrompt';
 import { buildSSEResponse } from '@/lib/ai/streamHandler';
@@ -13,14 +12,7 @@ export async function POST(request: NextRequest) {
   if (!rateResult.allowed) {
     return NextResponse.json(
       { error: 'Rate limit exceeded' },
-      {
-        status: 429,
-        headers: {
-          'Retry-After': String(rateResult.retryAfter ?? 60),
-          'X-RateLimit-Limit': '20',
-          'X-RateLimit-Remaining': '0',
-        },
-      }
+      { status: 429, headers: { 'Retry-After': String(rateResult.retryAfter ?? 60) } }
     );
   }
 
@@ -32,17 +24,8 @@ export async function POST(request: NextRequest) {
   }
 
   const { documentTextA, documentTextB, documentIdA, documentIdB } = body;
-  if (!documentIdA || !documentIdB) {
-    return NextResponse.json({ error: 'Missing document IDs' }, { status: 400 });
-  }
-
-  const checkA = validateDocumentInput(documentTextA);
-  const checkB = validateDocumentInput(documentTextB);
-  if (!checkA.valid) {
-    return NextResponse.json({ error: `Document A: ${checkA.error}` }, { status: 400 });
-  }
-  if (!checkB.valid) {
-    return NextResponse.json({ error: `Document B: ${checkB.error}` }, { status: 400 });
+  if (!documentTextA || !documentTextB || !documentIdA || !documentIdB) {
+    return NextResponse.json({ error: 'Missing document texts or IDs' }, { status: 400 });
   }
 
   if (!checkForInjection(documentTextA).isSafe || !checkForInjection(documentTextB).isSafe) {

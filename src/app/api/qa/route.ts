@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/security/rateLimiter';
 import { redactPii } from '@/lib/security/piiRedactor';
 import { checkForInjection } from '@/lib/security/injectionGuard';
-import { validateQuestionInput } from '@/lib/security/inputValidator';
 import { getFlashModel } from '@/lib/ai/geminiClient';
 import { buildQAPrompt } from '@/lib/ai/prompts/qaPrompt';
 import { buildSSEResponse } from '@/lib/ai/streamHandler';
@@ -13,14 +12,7 @@ export async function POST(request: NextRequest) {
   if (!rateResult.allowed) {
     return NextResponse.json(
       { error: 'Rate limit exceeded' },
-      {
-        status: 429,
-        headers: {
-          'Retry-After': String(rateResult.retryAfter ?? 60),
-          'X-RateLimit-Limit': '20',
-          'X-RateLimit-Remaining': '0',
-        },
-      }
+      { status: 429, headers: { 'Retry-After': String(rateResult.retryAfter ?? 60) } }
     );
   }
 
@@ -32,13 +24,8 @@ export async function POST(request: NextRequest) {
   }
 
   const { question, chunks, conversationHistory, documentId } = body;
-  if (!documentId || !Array.isArray(chunks)) {
-    return NextResponse.json({ error: 'Missing documentId or chunks array' }, { status: 400 });
-  }
-
-  const inputCheck = validateQuestionInput(question);
-  if (!inputCheck.valid) {
-    return NextResponse.json({ error: inputCheck.error }, { status: 400 });
+  if (!question || typeof question !== 'string' || !Array.isArray(chunks)) {
+    return NextResponse.json({ error: 'Missing question or chunks' }, { status: 400 });
   }
 
   const injectionCheck = checkForInjection(question);
