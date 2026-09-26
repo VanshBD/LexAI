@@ -6,6 +6,21 @@
 
 **LexAI** is a production-grade GenAI legal assistant built for the **Google GDG HackToSkill Competition 2026**. It demystifies complex legal documents, highlights risks, visualizes clause relationships, and helps non-lawyers prepare for professional consultations — with **zero server-side document storage** and end-to-end privacy guarantees.
 
+🌐 **Live Application:** [https://lex-ai-five-ruby.vercel.app/](https://lex-ai-five-ruby.vercel.app/)  
+🎬 **Product Walkthrough Video:** [demo-video/lexai-demo.mp4](demo-video/lexai-demo.mp4)
+
+---
+
+## 🎬 Product Demo Video
+
+https://github.com/user-attachments/assets/demo-video-link (Click below to view the full product walkthrough):
+
+> 📹 **Watch Video Walkthrough:** [`demo-video/lexai-demo.mp4`](demo-video/lexai-demo.mp4)
+
+<video src="demo-video/lexai-demo.mp4" controls="controls" width="100%" height="auto">
+  Your browser does not support the video tag. You can view the demo video directly at <a href="demo-video/lexai-demo.mp4">demo-video/lexai-demo.mp4</a>.
+</video>
+
 ---
 
 ## 🎯 Problem Statement & Key Features
