@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/security/rateLimiter';
 import { redactPii } from '@/lib/security/piiRedactor';
 import { checkForInjection } from '@/lib/security/injectionGuard';
+import { validateDocumentInput } from '@/lib/security/inputValidator';
 import { getFlashModel } from '@/lib/ai/geminiClient';
 import { buildSummaryPrompt } from '@/lib/ai/prompts/summaryPrompt';
 import { buildSSEResponse } from '@/lib/ai/streamHandler';
@@ -12,7 +13,14 @@ export async function POST(request: NextRequest) {
   if (!rateResult.allowed) {
     return NextResponse.json(
       { error: 'Rate limit exceeded' },
-      { status: 429, headers: { 'Retry-After': String(rateResult.retryAfter ?? 60) } }
+      {
+        status: 429,
+        headers: {
+          'Retry-After': String(rateResult.retryAfter ?? 60),
+          'X-RateLimit-Limit': '20',
+          'X-RateLimit-Remaining': '0',
+        },
+      }
     );
   }
 
@@ -24,8 +32,13 @@ export async function POST(request: NextRequest) {
   }
 
   const { documentText, documentId } = body;
-  if (!documentText || typeof documentText !== 'string' || !documentId) {
-    return NextResponse.json({ error: 'Missing documentText or documentId' }, { status: 400 });
+  if (!documentId) {
+    return NextResponse.json({ error: 'Missing documentId' }, { status: 400 });
+  }
+
+  const inputCheck = validateDocumentInput(documentText);
+  if (!inputCheck.valid) {
+    return NextResponse.json({ error: inputCheck.error }, { status: 400 });
   }
 
   const injectionCheck = checkForInjection(documentText);
