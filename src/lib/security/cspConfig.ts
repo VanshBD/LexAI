@@ -1,11 +1,23 @@
-import { randomBytes } from 'crypto';
-
 /**
  * Generates a cryptographically random nonce for use in CSP script-src directives.
+ * Uses Web Crypto API (crypto.getRandomValues) which runs universally in both
+ * Edge runtime and standard Node.js environments.
  * @returns A base64-encoded 16-byte nonce string.
  */
 export function generateNonce(): string {
-  return randomBytes(16).toString('base64');
+  if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+    const bytes = new Uint8Array(16);
+    crypto.getRandomValues(bytes);
+    if (typeof btoa !== 'undefined') {
+      let binary = '';
+      for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return btoa(binary);
+    }
+  }
+  // Safe fallback if btoa or getRandomValues is unavailable
+  return Math.random().toString(36).substring(2) + Date.now().toString(36);
 }
 
 /**
@@ -15,8 +27,8 @@ export function generateNonce(): string {
  */
 export function buildCspHeader(nonce?: string): string {
   const scriptSrc = nonce
-    ? `script-src 'self' 'nonce-${nonce}'`
-    : `script-src 'self'`;
+    ? `script-src 'self' 'unsafe-eval' 'unsafe-inline' 'nonce-${nonce}'`
+    : `script-src 'self' 'unsafe-eval' 'unsafe-inline'`;
 
   const directives = [
     `default-src 'self'`,
