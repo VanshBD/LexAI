@@ -1,0 +1,30 @@
+SOFTWARE AS A SERVICE (SAAS) AND CONSULTING SERVICES AGREEMENT
+
+This Agreement is entered into on October 1, 2026, by and between CloudCore Inc. ("Provider"), located at 123 Tech Boulevard, San Francisco, CA 94107, and Acme Enterprises LLC ("Customer"), located at 456 Commerce Way, Austin, TX 78701.
+
+1. SCOPE OF SERVICES AND LICENSE
+Provider grants Customer a non-exclusive, non-transferable, revocable license to access and use the CloudCore Platform solely for Customer's internal business operations during the term.
+
+2. FEES AND PAYMENT TERMS
+Customer shall pay all recurring subscription fees of $5,000 per month within thirty (30) days from invoice date. Any overdue amount shall accrue interest at 1.5% per month or the maximum permitted by law. All fees are non-refundable regardless of early termination.
+
+3. YOUR OBLIGATIONS AND ACCEPTABLE USE
+Customer agrees not to reverse engineer, decompile, or copy the software. Customer shall maintain confidentiality of all account credentials and promptly notify Provider within twenty-four (24) hours of any unauthorized access or security breach.
+
+4. CONFIDENTIALITY AND DATA SECURITY
+Each party agrees to maintain strict confidentiality of all proprietary information disclosed hereunder. Provider shall implement standard technical measures to protect Customer data. Confidentiality obligations shall survive termination for five (5) years.
+
+5. UNLIMITED INDEMNIFICATION BY CUSTOMER
+Customer shall fully defend, indemnify, and hold harmless Provider, its officers, directors, and affiliates against any and all third-party claims, damages, liabilities, costs, and attorney's fees arising out of Customer's use of the Platform or breach of this Agreement, with no monetary cap or limitation.
+
+6. LIMITATION OF LIABILITY
+IN NO EVENT SHALL PROVIDER'S AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT EXCEED THE TOTAL FEES ACTUALLY PAID BY CUSTOMER IN THE ONE (1) MONTH PRECEDING THE CLAIM. PROVIDER SHALL NOT BE LIABLE FOR ANY CONSEQUENTIAL, INDIRECT, SPECIAL, OR PUNITIVE DAMAGES.
+
+7. TERMINATION AND IMPORTANT DEADLINES
+Either party may terminate this Agreement for convenience with sixty (60) days prior written notice. Provider may immediately suspend or terminate access without notice if Customer fails to pay fees within ten (10) days of due date. Upon termination, Customer shall immediately cease all use and return all materials within fifteen (15) days.
+
+8. GOVERNING LAW AND JURISDICTION
+This Agreement shall be governed exclusively by the laws of the State of Delaware, without regard to conflict of law principles. Any dispute arising under this Agreement must be brought exclusively in the state or federal courts in Wilmington, Delaware. Customer waives all rights to a jury trial or class action proceeding.
+
+9. ACTIONS REQUIRED BEFORE SIGNING
+Customer must verify compliance with local data privacy regulations and ensure IT security protocols align with Provider's API authentication requirements prior to execution.

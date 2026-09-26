@@ -1,0 +1,24 @@
+REVISED ENTERPRISE CLOUD SERVICES AGREEMENT
+
+This Agreement is made on October 1, 2026, between CloudCore Inc. ("Provider"), located in San Francisco, CA, and Acme Enterprises LLC ("Customer"), located in Austin, TX.
+
+1. SCOPE OF SERVICES AND EXPANDED LICENSE
+Provider grants Customer an exclusive, worldwide license to access the CloudCore Enterprise Platform, including sublicensing rights to Customer's designated affiliates.
+
+2. FEES AND PAYMENT TERMS
+Monthly subscription fees are $4,200 per month payable net sixty (60) days. In the event of early termination for cause, unearned prepaid fees shall be refunded pro-rata to Customer.
+
+3. MUTUAL CONFIDENTIALITY
+Both parties mutually agree to maintain strict confidentiality of all trade secrets and user records for a period of three (3) years post-termination.
+
+4. MUTUAL INDEMNIFICATION AND CAPPED INDEMNITY
+Each party shall indemnify and defend the other against direct third-party claims arising from gross negligence or willful misconduct, subject to an aggregate monetary cap equal to twelve (12) months of paid fees.
+
+5. BALANCED LIMITATION OF LIABILITY
+Neither party's liability under this Agreement shall exceed twelve (12) times the average monthly fee paid during the contract term. Both parties remain liable for direct damages resulting from data breaches.
+
+6. TERMINATION NOTICE
+Either party may terminate this agreement with thirty (30) days prior written notice. If Provider experiences downtime exceeding 99.5%, Customer may terminate immediately with a full refund.
+
+7. GOVERNING LAW AND ARBITRATION
+This Agreement shall be governed by the laws of Texas, and all disputes shall be resolved through binding confidential arbitration under AAA rules in Austin, Texas.
