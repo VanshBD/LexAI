@@ -9,13 +9,16 @@ export interface InjectionCheckResult {
 }
 
 const INJECTION_PATTERNS: RegExp[] = [
-  /ignore\s+(previous|all|prior)\s+instructions?/i,
+  /ignore\s+(?:previous|all|prior)\s+instructions?/i,
   /you\s+are\s+now\s+(?:a|an)/i,
-  /disregard\s+(your|all|the)\s+(previous|prior|above)/i,
+  /disregard\s+(?:your|all|the)\s+(?:previous|prior|above)/i,
   /\bsystem\s*prompt\b/i,
-  /\bact\s+as\b.*\b(DAN|jailbreak|uncensored)\b/i,
+  /\bact\s+as\b.*\b(DAN|jailbreak|uncensored|developer\s*mode)\b/i,
   /<\/?(?:script|system|assistant|user)\s*>/i,
   /\[\s*INST\s*\]/i,
+  /<\|(?:im_start|im_end|endoftext)\|>/i,
+  /override\s+(?:all\s+)?safety\s+guidelines/i,
+  /bypass\s+(?:the\s+)?filter/i,
 ];
 
 /**

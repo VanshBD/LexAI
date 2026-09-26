@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { checkRateLimit } from '@/lib/security/rateLimiter';
+import { redactPii } from '@/lib/security/piiRedactor';
 import { checkForInjection } from '@/lib/security/injectionGuard';
 import { getFlashModel } from '@/lib/ai/geminiClient';
 import { buildQAPrompt } from '@/lib/ai/prompts/qaPrompt';
@@ -32,9 +33,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid input detected' }, { status: 400 });
   }
 
+  const { redactedText: redactedQuestion } = redactPii(question);
+  const sanitizedChunks = chunks.map((c: any) => ({
+    ...c,
+    text: typeof c.text === 'string' ? redactPii(c.text).redactedText : '',
+  }));
+
   return buildSSEResponse(async function* () {
     const model = getFlashModel();
-    const prompt = buildQAPrompt(question, chunks, conversationHistory || []);
+    const prompt = buildQAPrompt(redactedQuestion, sanitizedChunks, conversationHistory || []);
 
     const result = await model.generateContentStream(prompt);
     let fullText = '';

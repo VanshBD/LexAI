@@ -23,6 +23,8 @@ const PII_PATTERNS: Array<{ pattern: RegExp; placeholder: string }> = [
     pattern: /\b(?:passport|license|id)\s*(?:no\.?|number|#)?\s*:?\s*([A-Z0-9]{6,12})\b/gi,
     placeholder: '[ID_NUMBER]',
   },
+  { pattern: /\b(?:\d{4}[-\s]?){3}\d{4}\b/g, placeholder: '[CARD_NUMBER]' },
+  { pattern: /\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b/g, placeholder: '[IP_ADDRESS]' },
   { pattern: /(?<![.!?]\s)\b([A-Z][a-z]+)\s([A-Z][a-z]+)\b/g, placeholder: '[PERSON_NAME]' },
 ];
 

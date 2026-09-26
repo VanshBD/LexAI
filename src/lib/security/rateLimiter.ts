@@ -15,6 +15,7 @@ interface RateLimitEntry {
 }
 
 const store = new Map<string, RateLimitEntry>();
+let lastCleanup = Date.now();
 
 /**
  * Checks if an IP address has exceeded the rate limit.
@@ -25,6 +26,17 @@ const store = new Map<string, RateLimitEntry>();
  */
 export function checkRateLimit(ip: string, limit = 20, windowMs = 60_000): RateLimitResult {
   const now = Date.now();
+
+  // Periodic pruning of stale entries to optimize memory efficiency
+  if (now - lastCleanup > windowMs * 2) {
+    lastCleanup = now;
+    store.forEach((v, k) => {
+      if (now - v.windowStart >= windowMs) {
+        store.delete(k);
+      }
+    });
+  }
+
   const entry = store.get(ip);
 
   if (!entry || now - entry.windowStart >= windowMs) {
